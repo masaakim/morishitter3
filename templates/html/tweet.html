@@ -1,0 +1,71 @@
+{% extends "_base.html" %}
+
+{% block TITLE %}
+morishitter
+{% endblock %}
+{% block content %}
+{#
+<br><br>
+<form class="form-horizontal" method="POST" action="attack.php">
+    <div class="form-actions">
+        <input type="text" name="fav_count">
+        <input type="hidden" name="Fav_Attack" value="{{others[0].user.id}}">
+        <input type="submit" class="btn btn-warning btn-large" value="Fav Attack">
+    </div>
+</form>
+#}
+<br><br>
+<div class="row">
+    <div class="span4">
+        <form  method="POST" action="">
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label" for="textarea">Tweet here</label>
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="textarea" rows="7" cols="15" name="tweet">{% if reply %}@{{reply}} {% endif %}</textarea>
+                        <br><button type="submit" class="btn btn-primary btn-large"> Tweet </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <br><br>
+    <div class="span8">
+        {% for val in data %}
+        <div class="row"> 
+            <div class="span6">
+                <div class="row">
+                    <div class="span1">
+                        <a href="/user/{{val.user.screen_name}}"><IMG SRC="{{val.user.profile_image_url}}" ALT="icon" WIDTH="50" HEIGHT="50"></a><br><a href="/user/{{val.user.screen_name}}">@{{val.user.screen_name}}</a>
+                    </div>
+                    <div class="span5">
+                        {{val.text}}<br><small style="color: gray;">{{val.created_at}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="span2">
+                <form class="" method="POST" action="tweet.php">
+                    <div class="form-actions">
+                        <input type="hidden" name="reply_fav" value="{{val.id_str}}">
+                        <button class="btn btn-mini" name="reply" value="{{val.user.screen_name}}">Reply</button>
+                        <button class="btn btn-warning btn-mini" name="fav" value="{{val.id_str}}">★ </button>
+                        <button class="btn btn-info btn-mini" name="RT" value="{{val.id_str}}">RT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        {% endfor %} 
+        {# <p id="loading" style="display:none;">loading...</p> #}
+    </div>
+</div>
+<br><br><br>
+
+<form class="form-horizontal" method="POST" action="/">
+    <div class="form-actions">
+        <button class="btn btn-success" name="more">Read More</button>
+    </div>
+</form>
+
+<br><br><br><br><br><br><br><br>
+{% endblock %}

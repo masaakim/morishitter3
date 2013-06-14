@@ -1,0 +1,78 @@
+{% extends "_base.html" %}
+
+{% block TITLE %}
+morishitter
+{% endblock %}
+{% block content %}
+
+<br><br>
+
+<form class="form-horizontal" method="POST" action="../attack.php">
+    <div class="form-actions">
+        {#<button class="btn btn-warning btn-large" name="Fav_Attack" value="{{others[0].user.id}}">Fav Attack</button>
+        <button class="btn btn-warning btn-large" name="Air_Fav_Attack" value="{{others[0].user.id}}">Fav Attack</button>#}
+        <input type="text" name="fav_count">
+        <input type="hidden" name="Fav_Attack" value="{{others[0].user.id}}">
+        <input type="submit" class="btn btn-warning btn-large" value="Fav Attack">
+    </div>
+</form>
+<form class="form-horizontal" method="POST" action="../air_attack.php">
+    <div class="form-actions">
+        {#<button class="btn btn-warning btn-large" name="Fav_Attack" value="{{others[0].user.id}}">Fav Attack</button>
+        <button class="btn btn-warning btn-large" name="Air_Fav_Attack" value="{{others[0].user.id}}">Fav Attack</button>#}
+        <input type="text" name="air_fav_count">
+        <input type="hidden" name="Air_Fav_Attack" value="{{others[0].user.id}}">
+        <input type="submit" class="btn btn-success btn-large" value="Air Fav Attack">
+    </div>
+</form>
+
+<br><br><br><br>
+
+<IMG SRC="{{others[0].user.profile_image_url_https}}" ALT="icon" WIDTH="100" HEIGHT="100">
+  <h2>Bio</h2>
+  <p>{{others[0].user.description}}</p>
+  <a class="btn-info" href="follow.php?id={{others[0].user.id}}&name={{others[0].user.screen_name}}">Follow</a>
+  <a class="btn-danger" href="remove.php?id={{others[0].user.id}}&name={{others[0].user.screen_name}}">Remove</a>
+
+  <br><br><br>
+
+<form class="form-horizontal" method="POST" action="others.php">
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="textarea">Tweet here</label>
+      <div class="controls">
+        <textarea class="input-xlarge" id="textarea" rows="10" cols="10" name="tweet">{% if reply %}@{{reply}} {% endif %}</textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"> Tweet </button>
+    </div>
+  </fieldset>
+</form>
+<br><br>
+
+
+
+
+{% for val in others %}
+
+
+<IMG SRC="{{val.user.profile_image_url}}" ALT="icon" WIDTH="50" HEIGHT="50"> {{val.user.screen_name}} : {{val.text}}<br>
+  <p><small>{{val.created_at}}<small></p>
+
+<form class="form-horizontal" method="POST" action="others.php">
+  <div class="form-actions">
+    <input type="hidden" name="reply_fav" value="{{val.id_str}}">
+    <button class="btn" name="reply" value="{{val.user.screen_name}}">Reply</button>
+    <button class="btn btn-warning" name="fav" value="{{val.id_str}}">★ </button>
+    <button class="btn btn-info" name="RT" value="{{val.id_str}}">RT</button>
+  </div>
+</form>
+
+
+
+{% endfor %}
+
+<br><br><br>
+
+{% endblock %}

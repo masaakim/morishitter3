@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+
+{% block TITLE %}
+morishitter
+{% endblock %}
+{% block content %}
+
+<br><br>
+
+{{my_profile.user.description}}
+{% for val in my_profile %}
+
+<div class="row">
+    <div class="span6">
+        <IMG SRC="{{val.user.profile_image_url}}" ALT="icon" WIDTH="50" HEIGHT="50">
+        {{val.user.screen_name}} : {{val.text}}<br>
+        <p><small>{{val.created_at}}<small></p>
+            </div>
+            <div class="span3">
+                <form method="POST" action="profile.php">
+                    <button class="btn" name="delete" value="{{val.id}}">Delete</button>
+                </form>
+            </div>
+            <br>
+
+
+        </div>
+            {% endfor %}
+        <br><br><br>
+
+        {% endblock %}

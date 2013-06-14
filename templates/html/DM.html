@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block TITLE %}
+morishitter
+{% endblock %}
+{% block content %}
+
+<br>
+
+<a class="btn" href="/DM_in">In-Box</a>
+<a class="btn" href="/DM_out">Out-Box</a>
+
+<br><br><br>
+
+{% for val in DM %}
+
+
+<IMG SRC="{{val.sender.profile_image_url}}" ALT="icon" WIDTH="50" HEIGHT="50"> <a href="others.php?id={{val.user.screen_name}}">@{{val.user.screen_name}}</a> : D {{val.recipient.screen_name}} {{val.text}}<br>
+	<p><small>{{val.created_at}}<small></p>
+<br>
+
+
+{% endfor %}
+
+<br><br><br>
+
+{% endblock %}
